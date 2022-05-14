@@ -18,8 +18,8 @@ public class Room {
 	@Column(name = "id")
 	private long id;
 	
-	@Column(name = "catogory")
-	private String catogory;
+	@Column(name = "category")
+	private String category;
 	
 	@Column(name = "size")
 	private String size;
@@ -31,10 +31,10 @@ public class Room {
 		
 	}
 
-	public Room(long id, String catogory, String size, String description) {
+	public Room(long id, String category, String size, String description) {
 		super();
 		this.id = id;
-		this.catogory = catogory;
+		this.category = category;
 		this.size = size;
 		this.description = description;
 	}
@@ -47,12 +47,12 @@ public class Room {
 		this.id = id;
 	}
 
-	public String getCatogory() {
-		return catogory;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setCatogory(String catogory) {
-		this.catogory = catogory;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getSize() {
@@ -73,7 +73,7 @@ public class Room {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(catogory, description, id, size);
+		return Objects.hash(category, description, id, size);
 	}
 
 	@Override
@@ -85,9 +85,10 @@ public class Room {
 		if (getClass() != obj.getClass())
 			return false;
 		Room other = (Room) obj;
-		return Objects.equals(catogory, other.catogory) && Objects.equals(description, other.description)
+		return Objects.equals(category, other.category) && Objects.equals(description, other.description)
 				&& id == other.id && Objects.equals(size, other.size);
 	}
+	
 	
 	
 

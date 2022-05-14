@@ -60,7 +60,7 @@ public class RoomController {
 		
 		Room existigroom = roomrepositary.findById(id).orElseThrow(() -> new Roomexeption("user not found"));
 		
-		existigroom.setCatogory(room.getCatogory());
+		existigroom.setCategory(existigroom.getCategory());
 		existigroom.setSize(room.getSize());
 		existigroom.setDescription(room.getDescription());
 		
