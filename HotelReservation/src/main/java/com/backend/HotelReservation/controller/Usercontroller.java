@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.backend.HotelReservation.entity.UseLoginModel;
 import com.backend.HotelReservation.entity.User;
 import com.backend.HotelReservation.exeption.UserExeption;
 import com.backend.HotelReservation.repositary.UserRepositary;
@@ -66,6 +67,20 @@ public class Usercontroller {
 		existigUser.setPassword(user.getPassword());
 		User updated = userRepositary.save(existigUser);
 		return ResponseEntity.ok(updated);
+	}
+	
+
+	@PostMapping("/Login")
+	public Long login  (@RequestBody UseLoginModel useLoginModel) {
+
+		User user = userRepositary.findById(userRepositary.GetUserByid
+				(useLoginModel.getEmail())).orElseThrow(() -> new UserExeption("user not found"));
+		if( user.getPassword().equals(useLoginModel.getPassword())  ) {
+			return user.getUserId() ;
+		}
+		else {
+			return (long) -1;
+		}
 	}
 
 }

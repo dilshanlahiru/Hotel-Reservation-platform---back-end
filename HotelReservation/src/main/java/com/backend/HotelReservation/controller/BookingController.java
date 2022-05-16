@@ -1,4 +1,6 @@
 package com.backend.HotelReservation.controller;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -75,10 +77,33 @@ public class BookingController {
 	}
 	
 	@GetMapping("/checkAvailability/{arrivalDate}/{departureDate}/{category}/{size}")
-	public int checkAvailability(@PathVariable Date arrivalDate,@PathVariable Date departureDate, String category, String size){
+//	public int checkAvailability(@PathVariable Date arrivalDate,@PathVariable Date departureDate,@PathVariable  String category,@PathVariable  String size){
+	public int checkAvailability(@PathVariable String arrivalDate,@PathVariable String departureDate,@PathVariable  String category,@PathVariable  String size){
 		
-		return (bookingrepositary.availableCount(arrivalDate, departureDate, category, size));
-	}
+		
+		Date aDate = null, dDate = null;
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+        try {
+			aDate = dt.parse(arrivalDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			dDate = dt.parse(departureDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println(aDate);
+        System.out.println(dDate);
+        System.out.println(size);
+        System.out.println(category + arrivalDate);
+        return (bookingrepositary.availableCount4(arrivalDate, departureDate, category, size));
+//		return (bookingrepositary.availableCount(aDate, dDate, category, size));
+//		return (bookingrepositary.availableCount1(category, size));
+//      return (bookingrepositary.availableCount2(category, size));
+        }
 	
 	
 	
