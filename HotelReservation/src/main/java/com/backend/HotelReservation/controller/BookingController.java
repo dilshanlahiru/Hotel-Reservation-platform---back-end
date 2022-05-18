@@ -49,6 +49,7 @@ public class BookingController {
 		return ResponseEntity.ok(booking);
 	}
 	
+	
 	@DeleteMapping("/{bookingId}")
 	public ResponseEntity <Map<String, Boolean>> deletebooking(@PathVariable long bookingId){
 		
@@ -79,33 +80,40 @@ public class BookingController {
 	@GetMapping("/checkAvailability/{arrivalDate}/{departureDate}/{category}/{size}")
 //	public int checkAvailability(@PathVariable Date arrivalDate,@PathVariable Date departureDate,@PathVariable  String category,@PathVariable  String size){
 	public int checkAvailability(@PathVariable String arrivalDate,@PathVariable String departureDate,@PathVariable  String category,@PathVariable  String size){
+		int availableRoomCount = bookingrepositary.availableRoomCountByCategary(category, size);
 		
 		
-		Date aDate = null, dDate = null;
-		SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
-        try {
-			aDate = dt.parse(arrivalDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        try {
-			dDate = dt.parse(departureDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        System.out.println(aDate);
-        System.out.println(dDate);
-        System.out.println(size);
-        System.out.println(category + arrivalDate);
-        return (bookingrepositary.availableCount4(arrivalDate, departureDate, category, size));
+//		Date aDate = null, dDate = null;
+//		SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+//        try {
+//			aDate = dt.parse(arrivalDate);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        try {
+//			dDate = dt.parse(departureDate);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        System.out.println(aDate);
+//        System.out.println(dDate);
+//        System.out.println(size);
+//        System.out.println(category + arrivalDate);
+        int bookedCount =bookingrepositary.availableCount4(arrivalDate, departureDate, category, size);
+//        System.out.println(bookedCount);
+//        System.out.println(availableRoomCount);
+        return (availableRoomCount - bookedCount);
 //		return (bookingrepositary.availableCount(aDate, dDate, category, size));
 //		return (bookingrepositary.availableCount1(category, size));
 //      return (bookingrepositary.availableCount2(category, size));
         }
 	
-	
+	@GetMapping("/booking/{cusId}")
+	public List <Booking> getAllbookingById(@PathVariable long cusId) {
+		return(bookingrepositary.getAllUsersBooking(cusId));
+	}
 	
 
 }
